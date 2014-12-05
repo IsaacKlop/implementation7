@@ -16,7 +16,7 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Sending POST to GCM" );
-
+        // This is a comment made possible by Laurens Weitkamp
         String apiKey = "AIzaSyC3clKuTxILxby8euNiyO9dqTJy2wqCWcg";
         Content content = createContent();
 

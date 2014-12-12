@@ -32,7 +32,9 @@ public class App
 
     public static Content createContent(){
 
+    	//static voor testing
     	String username = "isaac";
+    	//einde
     	
     	HashMap<String, String> map = new HashMap<String, String>();
         Content c = new Content();

@@ -101,6 +101,7 @@ public class UserDao {
 	}
 	
 	public boolean checkInfo(String uuid, String username) {
+		int counter = -1;
 		try {
 		// Register JDBC driver
 		Class.forName("com.mysql.jdbc.Driver");
@@ -115,9 +116,6 @@ public class UserDao {
 		stmt.setString(1, uuid);
 		stmt.setString(2, username);
 		rs = stmt.executeQuery();
-		
-		//Empty variable
-		int counter;
 		
 		//Read count
 		while(rs.next()){

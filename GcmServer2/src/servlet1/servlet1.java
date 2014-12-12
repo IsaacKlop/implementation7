@@ -3,7 +3,7 @@ package servlet1;
 import database.UserDao;
 
 import java.io.IOException;
-import java.util.UUID;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

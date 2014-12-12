@@ -3,6 +3,7 @@ package database;
 import java.sql.*;
 import java.util.UUID;
 
+
 public class UserDao {
 	// Database credentials
 	final String DB_URL = "jdbc:mysql://localhost/TEST";
@@ -70,7 +71,7 @@ public class UserDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, uuid);
 			stmt.setString(2, username);
-			stmt.executeUpdate();
+			rs = stmt.executeQuery();
 			successful = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,5 +95,38 @@ public class UserDao {
 		
 		UserDao userDao = new UserDao();
 		userDao.setUuid(uuid, username);
+	}
+	
+	public boolean checkInfo(String uuid, String username) {
+		try {
+		// Register JDBC driver
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		// Open a connection
+		conn = DriverManager.getConnection(DB_URL, USERNAME, PASS);
+		
+		
+		// Execute SQL query
+		String sql = "SELECT COUNT(*) FROM users WHERE uuid=? AND username=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, uuid);
+		stmt.setString(2, username);
+		rs = stmt.executeQuery();
+		
+		//Empty variable
+		int counter;
+		
+		//Read count
+		while(rs.next()){
+		    counter = rs.getInt("total");
+		    } 
+		
+		if (counter <= 0) {
+			return false;
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return true;
 	}
 }

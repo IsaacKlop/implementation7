@@ -7,14 +7,22 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import database.UserDao;
 import gcmserver.Content;
 
 public class App 
 {
     public static void main( String[] args )
     {
+    	//static voor testing
+    	UserDao userDao = new UserDao();
+    	userDao.createUuid("isaac");
+    	//einde
+    	
         System.out.println( "Sending POST to GCM" );
         String apiKey = "AIzaSyC3clKuTxILxby8euNiyO9dqTJy2wqCWcg";
         Content content = createContent();
@@ -24,11 +32,19 @@ public class App
 
     public static Content createContent(){
 
+    	String username = "isaac";
+    	
+    	HashMap<String, String> map = new HashMap<String, String>();
         Content c = new Content();
-        String uuid = "";
-
-        c.addRegId("APA91bEXu_2F1q0tBggVJwehyvdamnHO7yqzHV85JZ_jtOYGPqCGg2WLmy0bk6SJJBweyU1pIwHcgiDsOD6tDnUMxcSbsCuX8T_hjaOLUz15Q8yH1W94OcKaNmCzOzSpR3aAfyrxHsgcGJl7VWqWhA3oBFPabyBvphIvrsadh9LIzXsye9fuJts");
-        c.createData(uuid);
+        UserDao userDao = new UserDao();
+        
+        map = userDao.getUserInfo(username);
+        String uuid = map.get("uuid");
+        String regId = map.get("regid");
+        
+        c.addRegId(regId);
+        //c.addRegId("APA91bEXu_2F1q0tBggVJwehyvdamnHO7yqzHV85JZ_jtOYGPqCGg2WLmy0bk6SJJBweyU1pIwHcgiDsOD6tDnUMxcSbsCuX8T_hjaOLUz15Q8yH1W94OcKaNmCzOzSpR3aAfyrxHsgcGJl7VWqWhA3oBFPabyBvphIvrsadh9LIzXsye9fuJts");
+        c.createData(uuid, username);
 
         return c;
     }

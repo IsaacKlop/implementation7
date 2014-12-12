@@ -17,10 +17,11 @@ public class Content implements Serializable {
         registration_ids.add(regId);
     }
 
-    public void createData(String uuid){
+    public void createData(String uuid, String username){
         if(data == null)
             data = new HashMap<String,String>();
 
         data.put("uuid", uuid);
+        data.put("username", username);
     }
 }

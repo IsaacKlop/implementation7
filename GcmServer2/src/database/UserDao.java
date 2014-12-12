@@ -1,22 +1,23 @@
 package database;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.UUID;
 
 
 public class UserDao {
 	// Database credentials
-	final String DB_URL = "jdbc:mysql://localhost/TEST";
+	final String DB_URL = "jdbc:mysql://localhost/test";
 	final String USERNAME = "root";
-	final String PASS = "password";
+	final String PASS = "root";
 
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 
-	public String[] getUserInfo(String username) {
+	public HashMap<String, String> getUserInfo(String username) {
 
-		String[] returnString = { "", "" };
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			// Register JDBC driver
 			Class.forName("com.mysql.jdbc.Driver");
@@ -38,8 +39,10 @@ public class UserDao {
 				regid = rs.getString("regid");
 				uuid = rs.getString("uuid");
 			}
-			returnString[0] = regid;
-			returnString[1] = uuid;
+			
+			map.put("regid", regid);
+			map.put("uuid", uuid);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -54,10 +57,10 @@ public class UserDao {
 			} catch (SQLException se2) {
 			}
 		} // end try
-		return returnString;
+		return map;
 	}
 
-	public boolean setUuid(String uuid, String username) {
+	private boolean setUuid(String uuid, String username) {
 		boolean successful = false;
 		try {
 			// Register JDBC driver
@@ -87,14 +90,14 @@ public class UserDao {
 		return successful;
 	}
 	
+	//username komt binnen vanaf dll
 	public void createUuid(String username) {
 		//Generate UUID
 		Long uuidGet = UUID.randomUUID().getMostSignificantBits();
 		
 		String uuid = Long.toString(uuidGet);
 		
-		UserDao userDao = new UserDao();
-		userDao.setUuid(uuid, username);
+		this.setUuid(uuid, username);
 	}
 	
 	public boolean checkInfo(String uuid, String username) {

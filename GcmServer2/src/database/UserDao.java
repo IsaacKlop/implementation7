@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.*;
+import java.util.UUID;
 
 public class UserDao {
 	// Database credentials
@@ -83,5 +84,15 @@ public class UserDao {
 			}
 		}
 		return successful;
+	}
+	
+	public void createUuid(String username) {
+		//Generate UUID
+		Long uuidGet = UUID.randomUUID().getMostSignificantBits();
+		
+		String uuid = Long.toString(uuidGet);
+		
+		UserDao userDao = new UserDao();
+		userDao.setUuid(uuid, username);
 	}
 }

@@ -32,15 +32,7 @@ public class servlet1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//Generate UUID
-		Long uuidGet = UUID.randomUUID().getMostSignificantBits();
-		
-		String uuid = Long.toString(uuidGet);
-		
-		String username = "bla";
-		
-		UserDao userDao = new UserDao();
-		userDao.setUuid(uuid, username);
+
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

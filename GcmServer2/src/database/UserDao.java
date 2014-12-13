@@ -74,7 +74,7 @@ public class UserDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, uuid);
 			stmt.setString(2, username);
-			rs = stmt.executeQuery();
+			stmt.executeUpdate();
 			successful = true;
 		} catch (Exception e) {
 			e.printStackTrace();

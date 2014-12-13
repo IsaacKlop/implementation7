@@ -16,6 +16,10 @@ import javax.servlet.ServletInputStream;
 @WebServlet("/AppResponse")
 public class AppResponse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	// TODO: deze moeten in servlet 1 komen, als static
+	public String receivedUsername;
+	public String receivedUuid;
 
     public AppResponse() {
         super();
@@ -27,29 +31,19 @@ public class AppResponse extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		try {
             int length = request.getContentLength();
             byte[] input = new byte[length];
             ServletInputStream sin = request.getInputStream();
-            int c, count = 0 ;
-            while ((c = sin.read(input, count, input.length-count)) != -1) {
-                count +=c;
-            }
+            sin.read(input);
             sin.close();
  
-            String recievedString = new String(input);
+            String receivedString = new String(input);
             response.setStatus(HttpServletResponse.SC_OK);
-            OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream());
- 
-            System.out.println(recievedString);
-            Integer doubledValue = Integer.parseInt(recievedString) * 2;
- 
-            writer.write(doubledValue.toString());
-            writer.flush();
-            writer.close();
- 
- 
+            String[] receivedStringArray = receivedString.split(":");
+            receivedUsername = receivedStringArray[0];
+            receivedUuid = receivedStringArray[1];
+            System.out.println(receivedUsername + " : " + receivedUuid);
  
         } catch (IOException e) {
  

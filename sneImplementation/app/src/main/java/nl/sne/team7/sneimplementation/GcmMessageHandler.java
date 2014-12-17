@@ -33,14 +33,14 @@ public class GcmMessageHandler extends IntentService {
         MainActivity.uuid = extras.getString("uuid");
         MainActivity.username = extras.getString("username");
 
-        showButtons();
+        showToast();
         Log.i("GCM", "Received : (" +messageType+")  "+ extras.getString("uuid") + " : " + extras.getString("username"));
 
         GcmBroadcastReceiver.completeWakefulIntent(intent);
 
     }
 
-    public void showButtons(){
+    public void showToast(){
         handler.post(new Runnable() {
             public void run() {
                 Toast.makeText(getApplicationContext(),"Login request received, tap Accept or Decline." , Toast.LENGTH_LONG).show();

@@ -16,25 +16,22 @@ import gcmserver.Content;
 
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args)
     {
     	//static voor testing
+    	String username = "isaac";
     	UserDao userDao = new UserDao();
-    	userDao.createUuid("isaac");
+    	userDao.createUuid(username);
     	//einde
     	
         System.out.println( "Sending POST to GCM" );
         String apiKey = "AIzaSyC3clKuTxILxby8euNiyO9dqTJy2wqCWcg";
-        Content content = createContent();
+        Content content = createContent(username);
 
         PostGcm.post(apiKey, content);
     }
 
-    public static Content createContent(){
-
-    	//static voor testing
-    	String username = "isaac";
-    	//einde
+    public static Content createContent(String username){
     	
     	HashMap<String, String> map = new HashMap<String, String>();
         Content c = new Content();

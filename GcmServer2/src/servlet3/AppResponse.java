@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletInputStream;
 
+import servlet1.servlet1;
 import database.UserDao;
 
 @WebServlet("/AppResponse")
@@ -20,9 +21,9 @@ public class AppResponse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// TODO: deze moeten in servlet 1 komen, als static
-	public String receivedUsername;
-	public String receivedUuid;
-	public String receivedRegId;
+//	public String receivedUsername;
+//	public String receivedUuid;
+//	public String receivedRegId;
 
     public AppResponse() {
         super();
@@ -76,14 +77,14 @@ public class AppResponse extends HttpServlet {
 	}
 	
 	private void register (String username, String regid) {
-		receivedUsername = username;
-    	receivedRegId = regid;
+		servlet1.receivedUsername = username;
+    	servlet1.receivedRegId = regid;
     	UserDao userdao = new UserDao();
     	userdao.setRegId(username, regid);
 	}
 	
 	private void login (String username, String uuid) {
-		receivedUsername = username;
-        receivedUuid = uuid;
+		servlet1.receivedUsername = username;
+        servlet1.receivedUuid = uuid;
 	}
 }
